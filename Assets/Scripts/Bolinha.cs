@@ -6,12 +6,15 @@ using UnityEngine;
 public class Bolinha : MonoBehaviour
 {
     [SerializeField] float velocidade = 5;
+    [SerializeField] float raio = 0.25f;
+    [SerializeField] LayerMask layersParaColidir;
     Vector2 velAtual;
     Rigidbody2D rb;
     Vector2 temposDosRepatimentos;
-    float intervaloDeRebatimento = 0.1f;
+    [SerializeField] float intervaloDeRebatimento = 0.1f;
     Vector3 posOriginal;
     [SerializeField] Transform trPalheta;
+    [SerializeField] float distanciaDaChecagem = 0.1f;
 
     public static Action perdeuVida;
 
@@ -43,8 +46,9 @@ public class Bolinha : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Aguardando)
-            Dispara();        
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space))
+            && GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Aguardando)
+            Dispara();
     }
 
     private void FixedUpdate()
@@ -55,12 +59,16 @@ public class Bolinha : MonoBehaviour
             return;
         }
 
-        rb.velocity = velAtual;
         if (rb.position.y < 0)
         {
             GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
             Reseta();
             perdeuVida?.Invoke();
+        }
+        else
+        {
+            rb.velocity = velAtual;
+            CalculaColisao();
         }
     }
 
@@ -73,9 +81,15 @@ public class Bolinha : MonoBehaviour
         transform.SetParent(trPalheta);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void CalculaColisao()
     {
-        Vector2 pontoColisao = collision.contacts[0].point;
+        Debug.DrawLine(rb.position, rb.position + velAtual.normalized * distanciaDaChecagem, Color.blue, 0.1f);
+        RaycastHit2D[] contatos = Physics2D.CircleCastAll(rb.position, raio, velAtual.normalized, distanciaDaChecagem, layersParaColidir);
+        if (contatos.Length == 0)
+            return;
+        Debug.Log($"{contatos.Length} contatos com a bolinha");
+        Vector2 pontoColisao = contatos[0].point;
+        Debug.DrawLine(rb.position, pontoColisao, Color.red, 0.1f);
         Vector2 distanciaColisao = pontoColisao - rb.position;
         distanciaColisao.x = Mathf.Abs(distanciaColisao.x);
         distanciaColisao.y = Mathf.Abs(distanciaColisao.y);
@@ -90,7 +104,7 @@ public class Bolinha : MonoBehaviour
                 Rebate(false);
         }
 
-        Bloco bloco = collision.gameObject.GetComponentInParent<Bloco>();
+        Bloco bloco = contatos[0].collider.gameObject.GetComponentInParent<Bloco>();
         if (bloco)
             bloco.Destroi();
     }

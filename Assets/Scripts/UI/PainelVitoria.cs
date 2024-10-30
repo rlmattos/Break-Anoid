@@ -7,7 +7,7 @@ public class PainelVitoria : MonoBehaviour
 {
     [SerializeField] Button botaoConfirmacao;
     GameObject painel;
-    private void Start()
+    private void Awake()
     {
         painel = transform.GetChild(0).gameObject;
         FechaPainel();

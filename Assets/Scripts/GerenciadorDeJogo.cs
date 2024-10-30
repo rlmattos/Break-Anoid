@@ -34,6 +34,9 @@ public class GerenciadorDeJogo : MonoBehaviour
             case EstadosDeJogo.EmJogo:
                 estadoAtual = novoEstado;
                 break;
+            case EstadosDeJogo.Vitoria:
+                estadoAtual = novoEstado;
+                break;
             case EstadosDeJogo.Derrota:
                 if(atualizacaoForcada)
                     estadoAtual = novoEstado;

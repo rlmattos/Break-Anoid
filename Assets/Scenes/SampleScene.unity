@@ -157,8 +157,8 @@ MonoBehaviour:
   espacamento: {x: 1.7, y: 0.8}
   linhas:
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0.46787477, b: 0, a: 1}
-  - {r: 0.07524917, g: 0.48683497, b: 0.8396226, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &5954486
 Transform:
   m_ObjectHideFlags: 0
@@ -1333,6 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e3e12b8ed2b5d44983fa486bc57f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estadoAtual_readOnly: 0
 --- !u!4 &737540963
 Transform:
   m_ObjectHideFlags: 0
@@ -1359,7 +1360,7 @@ GameObject:
   - component: {fileID: 752506547}
   - component: {fileID: 752506546}
   - component: {fileID: 752506545}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Palheta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1378,7 +1379,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -1391,7 +1392,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 6
 --- !u!114 &752506546
 MonoBehaviour:
@@ -1642,7 +1643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 132.84, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &945568351
@@ -1842,7 +1843,7 @@ GameObject:
   - component: {fileID: 1110556409}
   - component: {fileID: 1110556411}
   - component: {fileID: 1110556410}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2077,7 +2078,7 @@ GameObject:
   - component: {fileID: 1368267492}
   - component: {fileID: 1368267493}
   - component: {fileID: 1368267494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2141,7 +2142,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 6e04b16800670f8438f5e21860bc4834, type: 3}
-  m_Color: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -2982,7 +2983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 106.765, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844993893
@@ -3107,7 +3108,7 @@ GameObject:
   - component: {fileID: 1970576955}
   - component: {fileID: 1970576954}
   - component: {fileID: 1970576953}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bolinha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3126,8 +3127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b09114273ea02f4a9ce3098378bc0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidade: 5
+  velocidade: 6
+  raio: 0.25
+  layersParaColidir:
+    serializedVersion: 2
+    m_Bits: 385
+  intervaloDeRebatimento: 0.2
   trPalheta: {fileID: 752506547}
+  distanciaDaChecagem: 0.1
 --- !u!50 &1970576954
 Rigidbody2D:
   serializedVersion: 4
@@ -3153,7 +3160,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!4 &1970576955
 Transform:

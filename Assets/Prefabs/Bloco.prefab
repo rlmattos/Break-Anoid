@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6934250361083413344}
   - component: {fileID: 7215057855242214403}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bloco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 7954006647370919340}
   - component: {fileID: 3129682899449090088}
   - component: {fileID: 1562307691356385093}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
