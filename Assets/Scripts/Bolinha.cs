@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bolinha : MonoBehaviour
 {
+    Transform tr;
     [SerializeField] float velocidade = 5;
     [SerializeField] float raio = 0.25f;
     [SerializeField] LayerMask layersParaColidir;
@@ -15,9 +16,11 @@ public class Bolinha : MonoBehaviour
     Vector3 posOriginal;
     [SerializeField] Transform trPalheta;
     [SerializeField] float distanciaDaChecagem = 0.1f;
+    [SerializeField] float intervaloEntreQuebras = 3;
+    float contadorIntervaloEntreQuebras = 0;
+    int blocosQuebradosEmSequencia;
 
     public static Action perdeuVida;
-
 
     private void OnEnable()
     {
@@ -31,13 +34,14 @@ public class Bolinha : MonoBehaviour
 
     void Start()
     {
+        tr = transform;
         rb = GetComponent<Rigidbody2D>();
         Reseta();
     }
 
     private void Dispara()
     {
-        transform.SetParent(null);
+        tr.SetParent(null);
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.simulated = true;
         velAtual = (Vector2.up + Vector2.right).normalized * velocidade;
@@ -49,6 +53,12 @@ public class Bolinha : MonoBehaviour
         if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space))
             && GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Aguardando)
             Dispara();
+
+        if (contadorIntervaloEntreQuebras > 0)
+            contadorIntervaloEntreQuebras -= Time.deltaTime;
+        else
+            blocosQuebradosEmSequencia = 0;
+        
     }
 
     private void FixedUpdate()
@@ -70,6 +80,8 @@ public class Bolinha : MonoBehaviour
             rb.velocity = velAtual;
             CalculaColisao();
         }
+
+        tr.up = velAtual;
     }
 
     void Reseta()
@@ -77,8 +89,8 @@ public class Bolinha : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.simulated = false;
         velAtual = Vector3.zero;
-        transform.position = trPalheta.position + Vector3.up * 0.75f;
-        transform.SetParent(trPalheta);
+        tr.position = trPalheta.position + Vector3.up * 0.75f;
+        tr.SetParent(trPalheta);
     }
 
     private void CalculaColisao()
@@ -87,7 +99,6 @@ public class Bolinha : MonoBehaviour
         RaycastHit2D[] contatos = Physics2D.CircleCastAll(rb.position, raio, velAtual.normalized, distanciaDaChecagem, layersParaColidir);
         if (contatos.Length == 0)
             return;
-        Debug.Log($"{contatos.Length} contatos com a bolinha");
         Vector2 pontoColisao = contatos[0].point;
         Debug.DrawLine(rb.position, pontoColisao, Color.red, 0.1f);
         Vector2 distanciaColisao = pontoColisao - rb.position;
@@ -106,7 +117,19 @@ public class Bolinha : MonoBehaviour
 
         Bloco bloco = contatos[0].collider.gameObject.GetComponentInParent<Bloco>();
         if (bloco)
+        {
+            contadorIntervaloEntreQuebras = intervaloEntreQuebras;
+            blocosQuebradosEmSequencia++;
+            GerenciadorDeEfeitos.instancia.InstanciaEfeito(GerenciadorDeEfeitos.Efeitos.BlocoHit, pontoColisao, Quaternion.identity);
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.BlocoHit,1, 0.9f + (0.12f * blocosQuebradosEmSequencia));
             bloco.Destroi();
+        }else
+        {
+            if (contatos[0].transform.name.Contains("Parede"))
+                GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.ParedeHit, 1, 0.8f);
+            else
+                GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaHit, 1, 1.1f);
+        }
     }
 
     void Rebate(bool horizontal)
@@ -128,6 +151,6 @@ public class Bolinha : MonoBehaviour
         GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Derrota);
         rb.bodyType = RigidbodyType2D.Static;
         rb.simulated = false;
-        transform.position = Vector3.up * -100;
+        tr.position = Vector3.up * -100;
     }
 }

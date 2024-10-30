@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 public class GerenciadorDeJogo : MonoBehaviour
 {
     public static Action<EstadosDeJogo> mudouDeEstado;
-    public enum EstadosDeJogo
+    [Flags] public enum EstadosDeJogo
     {
-        Aguardando,
-        EmJogo,
-        Derrota,
-        Vitoria
+        Aguardando = 1,
+        EmJogo = 2,
+        Derrota = 4,
+        Vitoria = 8
     }
     public static EstadosDeJogo estadoAtual
     { 
@@ -42,6 +42,7 @@ public class GerenciadorDeJogo : MonoBehaviour
                     estadoAtual = novoEstado;
                 break;
             default:
+                estadoAtual = novoEstado;
                 break;
         }
         Debug.Log($"Novo estado: {estadoAtual}");
