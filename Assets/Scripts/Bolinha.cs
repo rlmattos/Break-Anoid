@@ -50,7 +50,10 @@ public class Bolinha : MonoBehaviour
     private void FixedUpdate()
     {
         if (GerenciadorDeJogo.estadoAtual != GerenciadorDeJogo.EstadosDeJogo.EmJogo)
+        {
+            rb.bodyType = RigidbodyType2D.Static;
             return;
+        }
 
         rb.velocity = velAtual;
         if (rb.position.y < 0)
