@@ -11,7 +11,8 @@ public class GerenciadorDeJogo : MonoBehaviour
         Aguardando = 1,
         EmJogo = 2,
         Derrota = 4,
-        Vitoria = 8
+        Vitoria = 8,
+        Intro = 16
     }
     public static EstadosDeJogo estadoAtual
     { 
@@ -21,7 +22,7 @@ public class GerenciadorDeJogo : MonoBehaviour
 
     private void Awake()
     {
-        AtualizaEstado(EstadosDeJogo.Aguardando, true);
+        AtualizaEstado(EstadosDeJogo.Intro, true);
     }
 
     public static void AtualizaEstado(EstadosDeJogo novoEstado, bool atualizacaoForcada = false)

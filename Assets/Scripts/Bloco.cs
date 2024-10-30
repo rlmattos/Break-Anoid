@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bloco : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] SpriteRenderer[] sprites;
     public Action<Bloco> blocoDestruido;
 
     private void Start()
@@ -14,7 +14,11 @@ public class Bloco : MonoBehaviour
 
     public void DefineCor(Color cor)
     {
-        sprite.color = cor;
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            cor.a = sprites[i].color.a;
+            sprites[i].color = cor;
+        }
     }
 
     public void Destroi()
@@ -31,7 +35,7 @@ public class Bloco : MonoBehaviour
 
     void MudouEstado(GerenciadorDeJogo.EstadosDeJogo novoEstado)
     {
-        if(novoEstado == GerenciadorDeJogo.EstadosDeJogo.Derrota ||
+        if (novoEstado == GerenciadorDeJogo.EstadosDeJogo.Derrota ||
             novoEstado == GerenciadorDeJogo.EstadosDeJogo.Vitoria)
         {
             blocoDestruido = null;

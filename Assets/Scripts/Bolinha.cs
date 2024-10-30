@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ public class Bolinha : MonoBehaviour
     [SerializeField] float intervaloEntreQuebras = 3;
     float contadorIntervaloEntreQuebras = 0;
     int blocosQuebradosEmSequencia;
+    [SerializeField] CinemachineImpulseSource cameraShake;
 
     public static Action perdeuVida;
 
@@ -138,11 +140,13 @@ public class Bolinha : MonoBehaviour
         {
             velAtual.x *= -1;
             temposDosRepatimentos.x = Time.time;
+            cameraShake.GenerateImpulseAtPositionWithVelocity(rb.position, (Vector3.right * -velAtual.x).normalized * 0.05f);
         }
         else
         {
             velAtual.y *= -1;
             temposDosRepatimentos.y = Time.time;
+            cameraShake.GenerateImpulseAtPositionWithVelocity(rb.position, (Vector3.up * -velAtual.y).normalized * 0.05f);
         }
     }
 

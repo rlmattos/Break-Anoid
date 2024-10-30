@@ -10,11 +10,13 @@ public class Instanciador : MonoBehaviour
     [SerializeField] Color[] linhas;
     int numLinhas;
     int blocosAtuais;
+    WaitForSeconds esperaEntreInstancias;
 
-    void Start()
+    IEnumerator Start()
     {
         Transform tr = transform;
         numLinhas = linhas.Length;
+        esperaEntreInstancias = new WaitForSeconds(0.025f);
         for (int linhaAtual = 0; linhaAtual < numLinhas; linhaAtual++)
         {
             for (int colunaAtual = 0; colunaAtual < colunas; colunaAtual++)
@@ -23,6 +25,7 @@ public class Instanciador : MonoBehaviour
                 blocoAtual.DefineCor(linhas[linhaAtual]);
                 blocoAtual.blocoDestruido += BlocoDestruido;
                 blocosAtuais++;
+                yield return esperaEntreInstancias;
             }
         }
     }

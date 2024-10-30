@@ -46,6 +46,7 @@ public class GerenciadorDeSFX : MonoBehaviour
                     trilhas[indiceDaTrilha].PlayOneShot(databaseEfeitos[i].clip, volume);
                 else
                     Debug.LogWarning($"SFX {efeitoParaInstanciar} não pode ser tocado pois todas as {trilhas.Length} estão ocupadas");
+                return;
             }
         }
     }

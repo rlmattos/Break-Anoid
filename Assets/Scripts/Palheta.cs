@@ -15,9 +15,15 @@ public class Palheta : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!GerenciadorDeJogo.estadoAtual.HasFlag(GerenciadorDeJogo.EstadosDeJogo.EmJogo) &&
+            !GerenciadorDeJogo.estadoAtual.HasFlag(GerenciadorDeJogo.EstadosDeJogo.Aguardando))
+        {
+            inputHorizontal = 0;
+            return;
+        }
+
         LeInput();
     }
 
@@ -35,5 +41,11 @@ public class Palheta : MonoBehaviour
     {
         velAtual.x = inputHorizontal * velMovimento;
         rb.velocity = velAtual;
+    }
+
+    public void TerminouAnimacao()
+    {
+        GetComponent<Animator>().enabled = false;
+        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
     }
 }
