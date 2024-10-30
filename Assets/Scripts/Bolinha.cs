@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,19 @@ public class Bolinha : MonoBehaviour
     Vector3 posOriginal;
     [SerializeField] Transform trPalheta;
 
-    enum Estados
-    {
-        Aguardando,
-        EmJogo
-    }
-    Estados estadoAtual;
+    public static Action perdeuVida;
 
-    // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+        Vida.gameOver += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        Vida.gameOver -= GameOver;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -30,30 +36,38 @@ public class Bolinha : MonoBehaviour
     {
         transform.SetParent(null);
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.simulated = true;
         velAtual = (Vector2.up + Vector2.right).normalized * velocidade;
-        estadoAtual = Estados.EmJogo;
+        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.EmJogo);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && estadoAtual == Estados.Aguardando)
+        if (Input.GetMouseButton(0) && GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Aguardando)
             Dispara();        
     }
 
     private void FixedUpdate()
     {
+        if (GerenciadorDeJogo.estadoAtual != GerenciadorDeJogo.EstadosDeJogo.EmJogo)
+            return;
+
         rb.velocity = velAtual;
         if (rb.position.y < 0)
+        {
+            GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
             Reseta();
+            perdeuVida?.Invoke();
+        }
     }
 
     void Reseta()
     {
         rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.simulated = false;
         velAtual = Vector3.zero;
-        rb.MovePosition(trPalheta.position + Vector3.up * 0.5f);
+        transform.position = trPalheta.position + Vector3.up * 0.75f;
         transform.SetParent(trPalheta);
-        estadoAtual = Estados.Aguardando;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -90,5 +104,13 @@ public class Bolinha : MonoBehaviour
             velAtual.y *= -1;
             temposDosRepatimentos.y = Time.time;
         }
+    }
+
+    void GameOver()
+    {
+        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Derrota);
+        rb.bodyType = RigidbodyType2D.Static;
+        rb.simulated = false;
+        transform.position = Vector3.up * -100;
     }
 }
