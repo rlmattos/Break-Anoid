@@ -9,6 +9,7 @@ public class GerenciadorDeSFX : MonoBehaviour
     [SerializeField] bool ligado = true;
     [SerializeField] SFX_SO[] databaseEfeitos;
     AudioSource[] trilhas = new AudioSource[5];
+    [SerializeField] AudioSource palhetaMove;
     int quantidadeEfeitos = -1;
 
     public enum Efeitos
@@ -16,7 +17,8 @@ public class GerenciadorDeSFX : MonoBehaviour
         BlocoHit,
         PalhetaHit,
         ParedeHit,
-        BolinhaHit
+        BolinhaHit,
+        PalhetaMove
     }
 
     private void Awake()
@@ -36,7 +38,19 @@ public class GerenciadorDeSFX : MonoBehaviour
     {
         if (!ligado)
             return;
-        Debug.Log($"Tocando {efeitoParaInstanciar}");
+        
+        //Debug.Log($"Tocando {efeitoParaInstanciar} com volume {volume} e pitch {pitch}");
+
+        switch (efeitoParaInstanciar)
+        {
+            case Efeitos.PalhetaMove:
+                instancia.palhetaMove.volume = volume;
+                instancia.palhetaMove.pitch = pitch;
+                if(!instancia.palhetaMove.isPlaying)
+                    instancia.palhetaMove.Play();
+                return;
+        }
+
         for (int i = 0; i < quantidadeEfeitos; i++)
         {
             if (databaseEfeitos[i].Efeito == efeitoParaInstanciar)

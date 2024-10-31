@@ -41,6 +41,12 @@ public class Palheta : MonoBehaviour
     {
         velAtual.x = inputHorizontal * velMovimento;
         rb.velocity = velAtual;
+        if (velAtual.x > 0)
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaMove, 1, 1.05f);
+        else if (velAtual.x < 0)
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaMove, 1, 1f);
+        else
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaMove, 0, 1f);
     }
 
     public void TerminouAnimacao()

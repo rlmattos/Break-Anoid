@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26258cd9541bd1243abd7cc3740d9e33, type: 3}
-  m_Name: SFX_Parede_Hit
+  m_Name: SFX_PalhetaMovendo
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 0b9f9e5d42ca1ad48886f623b09801fd, type: 3}
-  efeito: 2
+  clip: {fileID: 8300000, guid: 8fa3aca29a90d7e498ea0ad0aba41a70, type: 3}
+  efeito: 4
