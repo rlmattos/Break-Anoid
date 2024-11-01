@@ -91,7 +91,7 @@ public class Bolinha : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.simulated = false;
         velAtual = Vector3.zero;
-        tr.position = trPalheta.position + Vector3.up * 0.75f;
+        tr.position = trPalheta.position;
         tr.SetParent(trPalheta);
     }
 
@@ -130,7 +130,12 @@ public class Bolinha : MonoBehaviour
             if (contatos[0].transform.name.Contains("Parede"))
                 GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.ParedeHit, 1, 0.8f);
             else
+            {
+                Palheta palheta = contatos[0].collider.gameObject.GetComponentInParent<Palheta>();
+                if(palheta)
+                    palheta.Rebate();
                 GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaHit, 1, 1.1f);
+            }
         }
     }
 

@@ -1,17 +1,15 @@
-using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PainelDerrota : MonoBehaviour
 {
-    GameObject painel;
     [SerializeField] Button botaoConfirmacao;
-    private void Start()
+    [SerializeField] Animator painelAnim;
+    private void Awake()
     {
-        painel = transform.GetChild(0).gameObject;
-        FechaPainel();
+        FechaPainel(true);
     }
     private void OnEnable()
     {
@@ -30,18 +28,20 @@ public class PainelDerrota : MonoBehaviour
         if (novoEstado == GerenciadorDeJogo.EstadosDeJogo.Derrota)
             AbrePainel();
     }
+
     void AbrePainel()
     {
-        painel.SetActive(true);
+        painelAnim.Play("Aparece");
     }
 
-    void FechaPainel()
+    void FechaPainel(bool semAnimacao = false)
     {
-        painel.SetActive(false);
+        painelAnim.Play("Desaparece", 0, semAnimacao ? 1 : 0);
     }
+
     void ClicouBotaoConfirmacao()
     {
         FechaPainel();
-        GerenciadorDeJogo.ResetaJogo();
+        FadeDeTela.CarregaCena(SceneManager.GetActiveScene().name, 1f);
     }
 }

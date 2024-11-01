@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class PainelVitoria : MonoBehaviour
 {
     [SerializeField] Button botaoConfirmacao;
-    GameObject painel;
+    [SerializeField] Animator painelAnim;
     private void Awake()
     {
-        painel = transform.GetChild(0).gameObject;
-        FechaPainel();
+        FechaPainel(true);
     }
     private void OnEnable()
     {
@@ -32,17 +31,17 @@ public class PainelVitoria : MonoBehaviour
 
     void AbrePainel()
     {
-        painel.SetActive(true);
+        painelAnim.Play("Aparece");
     }
 
-    void FechaPainel()
+    void FechaPainel(bool semAnimacao = false)
     {
-        painel.SetActive(false);
+        painelAnim.Play("Desaparece", 0, semAnimacao ? 1 : 0);
     }
 
     void ClicouBotaoConfirmacao()
     {
         FechaPainel();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        FadeDeTela.CarregaCena(SceneManager.GetActiveScene().name, 1.5f);
     }
 }

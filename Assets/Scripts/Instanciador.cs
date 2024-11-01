@@ -16,7 +16,8 @@ public class Instanciador : MonoBehaviour
     {
         Transform tr = transform;
         numLinhas = linhas.Length;
-        esperaEntreInstancias = new WaitForSeconds(0.025f);
+        esperaEntreInstancias = new WaitForSeconds(0.035f);
+        yield return new WaitForSeconds(0.5f);
         for (int linhaAtual = 0; linhaAtual < numLinhas; linhaAtual++)
         {
             for (int colunaAtual = 0; colunaAtual < colunas; colunaAtual++)
