@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GerenciadorDeSFX : MonoBehaviour
 {
     public static GerenciadorDeSFX instancia;
+    [SerializeField] AudioMixerGroup SFX_MixerGroup;
     [SerializeField] bool ligado = true;
     [SerializeField] SFX_SO[] databaseEfeitos;
     AudioSource[] trilhas = new AudioSource[5];
@@ -18,7 +20,11 @@ public class GerenciadorDeSFX : MonoBehaviour
         PalhetaHit,
         ParedeHit,
         BolinhaHit,
-        PalhetaMove
+        PalhetaMove,
+        UI_Click,
+        UI_Hover,
+        UI_Move,
+        UI_Block
     }
 
     private void Awake()
@@ -31,6 +37,7 @@ public class GerenciadorDeSFX : MonoBehaviour
         for (int i = 0; i < trilhas.Length; i++)
         {
             trilhas[i] = gameObject.AddComponent<AudioSource>();
+            trilhas[i].outputAudioMixerGroup = SFX_MixerGroup;
         }
     }
 

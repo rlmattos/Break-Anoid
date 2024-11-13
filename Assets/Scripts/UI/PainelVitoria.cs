@@ -42,6 +42,6 @@ public class PainelVitoria : MonoBehaviour
     void ClicouBotaoConfirmacao()
     {
         FechaPainel();
-        FadeDeTela.CarregaCena(SceneManager.GetActiveScene().name, 1.5f);
+        FadeDeTela.CarregaCena("MenuInicial", 1.5f);
     }
 }

@@ -52,7 +52,7 @@ public class Bolinha : MonoBehaviour
 
     private void Update()
     {
-        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space))
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             && GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Aguardando)
             Dispara();
 

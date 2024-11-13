@@ -6,23 +6,38 @@ using UnityEngine.SceneManagement;
 public class GerenciadorDeJogo : MonoBehaviour
 {
     public static Action<EstadosDeJogo> mudouDeEstado;
-    [Flags] public enum EstadosDeJogo
+    [Flags]
+    public enum EstadosDeJogo
     {
         Aguardando = 1,
         EmJogo = 2,
         Derrota = 4,
         Vitoria = 8,
-        Intro = 16
+        Intro = 16,
+        Pause = 32
     }
     public static EstadosDeJogo estadoAtual
-    { 
+    {
         get; private set;
     }
     [SerializeField] EstadosDeJogo estadoAtual_readOnly;
+    public static EstadosDeJogo estadoAnterior
+    {
+        get; private set;
+    }
+    [SerializeField] EstadosDeJogo estadoAnterior_readOnly;
 
     private void Awake()
     {
         AtualizaEstado(EstadosDeJogo.Intro, true);
+    }
+
+    public static void RetornaAoEstadoAnterior()
+    {
+        EstadosDeJogo estadoTemporario = estadoAtual;
+        estadoAtual = estadoAnterior;
+        estadoAnterior = estadoTemporario;
+        mudouDeEstado?.Invoke(estadoAtual);
     }
 
     public static void AtualizaEstado(EstadosDeJogo novoEstado, bool atualizacaoForcada = false)
@@ -30,19 +45,26 @@ public class GerenciadorDeJogo : MonoBehaviour
         switch (estadoAtual)
         {
             case EstadosDeJogo.Aguardando:
+                estadoAnterior = estadoAtual;
                 estadoAtual = novoEstado;
                 break;
             case EstadosDeJogo.EmJogo:
+                estadoAnterior = estadoAtual;
                 estadoAtual = novoEstado;
                 break;
             case EstadosDeJogo.Vitoria:
+                estadoAnterior = estadoAtual;
                 estadoAtual = novoEstado;
                 break;
             case EstadosDeJogo.Derrota:
-                if(atualizacaoForcada)
+                if (atualizacaoForcada)
+                {
                     estadoAtual = novoEstado;
+                    estadoAnterior = estadoAtual;
+                }
                 break;
             default:
+                estadoAnterior = estadoAtual;
                 estadoAtual = novoEstado;
                 break;
         }
@@ -53,6 +75,7 @@ public class GerenciadorDeJogo : MonoBehaviour
     private void Update()
     {
         estadoAtual_readOnly = estadoAtual;
+        estadoAnterior_readOnly = estadoAnterior;
     }
 
     public static void ResetaJogo()
@@ -60,5 +83,5 @@ public class GerenciadorDeJogo : MonoBehaviour
         AtualizaEstado(EstadosDeJogo.Aguardando, true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
 }
