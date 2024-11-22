@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Vida : MonoBehaviour
 {
-    [SerializeField] GameObject[] sprites;
+    [SerializeField] Animator[] sprites;
     [SerializeField] int vidaMaxima = 3;
     int vidaAtual;
+    WaitForSeconds intervaloDeAtualizacao;
 
     public static Action gameOver;
 
@@ -21,28 +23,41 @@ public class Vida : MonoBehaviour
         Bolinha.perdeuVida -= PerdeVida;
     }
 
-    void Start()
+    IEnumerator Start()
     {
-        AtualizaVida(vidaMaxima, true);
+        yield return new WaitForSeconds(2.5f);
+        intervaloDeAtualizacao = new WaitForSeconds(0.15f);
+        StartCoroutine(AtualizaVida(vidaMaxima, true));
     }
 
-    public void AtualizaVida(int novaVida, bool atualizacaoForcada = false)
+    public IEnumerator AtualizaVida(int novaVida, bool atualizacaoForcada = false)
     {
-        if (vidaAtual == 0 && !atualizacaoForcada)
+        if (!(vidaAtual == 0 && !atualizacaoForcada))
+        {
+            vidaAtual = novaVida;
+            for (int i = 0; i < vidaMaxima; i++)
+            {
+                if (vidaAtual <= i)
+                {
+                    sprites[i].Play("Desaparece");
+                    yield return intervaloDeAtualizacao;
+                }
+                else if (!sprites[i].GetCurrentAnimatorStateInfo(0).IsName("Aparece"))
+                {
+                    sprites[i].Play("Aparece");
+                    yield return intervaloDeAtualizacao;
+                }
+            }
+        }
+        else
         {
             gameOver?.Invoke();
-            return;
-        }
-        vidaAtual = novaVida;
-        for (int i = 0; i < vidaMaxima; i++)
-        {
-            sprites[i].gameObject.SetActive(vidaAtual > i);
         }
 
     }
 
     void PerdeVida()
     {
-        AtualizaVida(vidaAtual - 1);
+        StartCoroutine(AtualizaVida(vidaAtual - 1));
     }
 }

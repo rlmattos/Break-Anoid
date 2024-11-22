@@ -12,7 +12,8 @@ public class GerenciadorDeEfeitos : MonoBehaviour
     public enum Efeitos
     {
         BlocoHit,
-        BlcoDestroi
+        BlocoDestroi,
+        BolinhaDestroi
     }
 
     private void Awake()

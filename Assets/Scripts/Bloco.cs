@@ -23,7 +23,7 @@ public class Bloco : MonoBehaviour
 
     public void Destroi()
     {
-        GerenciadorDeEfeitos.instancia.InstanciaEfeito(GerenciadorDeEfeitos.Efeitos.BlcoDestroi, transform.position, Quaternion.identity);
+        GerenciadorDeEfeitos.instancia.InstanciaEfeito(GerenciadorDeEfeitos.Efeitos.BlocoDestroi, transform.position, Quaternion.identity);
         blocoDestruido?.Invoke(this);
         Destroy(gameObject);
     }

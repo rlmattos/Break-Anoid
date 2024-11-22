@@ -21,24 +21,28 @@ public class Bolinha : MonoBehaviour
     float contadorIntervaloEntreQuebras = 0;
     int blocosQuebradosEmSequencia;
     [SerializeField] CinemachineImpulseSource cameraShake;
+    [SerializeField] Animator anim;
 
     public static Action perdeuVida;
 
     private void OnEnable()
     {
         Vida.gameOver += GameOver;
+        GerenciadorDeJogo.mudouDeEstado += MudouDeEstado;
     }
 
     private void OnDisable()
     {
         Vida.gameOver -= GameOver;
+        GerenciadorDeJogo.mudouDeEstado -= MudouDeEstado;
     }
 
     void Start()
     {
         tr = transform;
         rb = GetComponent<Rigidbody2D>();
-        Reseta();
+        Reseta(false); 
+        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Intro);
     }
 
     private void Dispara()
@@ -71,10 +75,13 @@ public class Bolinha : MonoBehaviour
             return;
         }
 
-        if (rb.position.y < 0)
+        if (rb.position.y < -1)
         {
-            GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
-            Reseta();
+            GerenciadorDeEfeitos.instancia.InstanciaEfeito(GerenciadorDeEfeitos.Efeitos.BolinhaDestroi, tr.position, Quaternion.identity);
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.BolinhaPerde, 1, 1);
+            GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.PerdeuBolinha);
+            anim.Play("Oculta");
+            Invoke("Reseta", 2);
             perdeuVida?.Invoke();
         }
         else
@@ -85,14 +92,21 @@ public class Bolinha : MonoBehaviour
 
         tr.up = velAtual;
     }
-
     void Reseta()
+    {
+        Reseta(true);
+    }
+    void Reseta(bool comAnimacao = true)
     {
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.simulated = false;
         velAtual = Vector3.zero;
         tr.position = trPalheta.position;
+        tr.rotation = Quaternion.identity;
         tr.SetParent(trPalheta);
+        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
+        if(comAnimacao)
+            anim.Play("Respawn");        
     }
 
     private void CalculaColisao()
@@ -153,6 +167,7 @@ public class Bolinha : MonoBehaviour
             temposDosRepatimentos.y = Time.time;
             cameraShake.GenerateImpulseAtPositionWithVelocity(rb.position, (Vector3.up * -velAtual.y).normalized * 0.05f);
         }
+        anim.Play("Hit");
     }
 
     void GameOver()
@@ -161,5 +176,17 @@ public class Bolinha : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
         rb.simulated = false;
         tr.position = Vector3.up * -100;
+    }
+
+    void MudouDeEstado(GerenciadorDeJogo.EstadosDeJogo novoEstado)
+    {
+        switch (novoEstado)
+        {
+            case GerenciadorDeJogo.EstadosDeJogo.Derrota:
+            case GerenciadorDeJogo.EstadosDeJogo.Vitoria:
+            case GerenciadorDeJogo.EstadosDeJogo.PerdeuBolinha:
+                anim.Play("Oculta");
+                break;
+        }
     }
 }

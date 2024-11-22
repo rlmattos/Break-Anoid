@@ -24,7 +24,8 @@ public class GerenciadorDeSFX : MonoBehaviour
         UI_Click,
         UI_Hover,
         UI_Move,
-        UI_Block
+        UI_Block,
+        BolinhaPerde
     }
 
     private void Awake()

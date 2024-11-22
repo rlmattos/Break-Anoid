@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fbc5723073ac1094c926dca8a5251c75, type: 2}
   - {fileID: 11400000, guid: 1748467c72bb49b4bb1f6871af98c0ba, type: 2}
   - {fileID: 11400000, guid: fe4ea78d24dc6554686f1edd25b8e0c1, type: 2}
+  - {fileID: 11400000, guid: a8810c4b254312d4cbd52f90525bebe0, type: 2}
   palhetaMove: {fileID: 3923835915001413731}
 --- !u!82 &3923835915001413731
 AudioSource:

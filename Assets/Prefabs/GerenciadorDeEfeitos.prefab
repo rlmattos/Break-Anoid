@@ -48,3 +48,4 @@ MonoBehaviour:
   databaseEfeitos:
   - {fileID: 11400000, guid: 0a701512e5a20824dbc6b295c9feaef1, type: 2}
   - {fileID: 11400000, guid: 15b6bdcfbb25a34418abfa2d86e97994, type: 2}
+  - {fileID: 11400000, guid: dd2dd98c95064b6419451ccbac880b67, type: 2}

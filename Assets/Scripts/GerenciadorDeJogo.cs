@@ -14,7 +14,8 @@ public class GerenciadorDeJogo : MonoBehaviour
         Derrota = 4,
         Vitoria = 8,
         Intro = 16,
-        Pause = 32
+        Pause = 32,
+        PerdeuBolinha = 64
     }
     public static EstadosDeJogo estadoAtual
     {

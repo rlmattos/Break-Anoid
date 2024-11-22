@@ -57,8 +57,8 @@ public class MenuInicial : MonoBehaviour
 
     public void ClicouSair()
     {
-        FadeDeTela.CarregaCena(SceneManager.GetActiveScene().name, 2);
-        Invoke("FechaJogo", 1);
+        FadeDeTela.AplicaFade(Color.clear, Color.black, 1);
+        Invoke("FechaJogo", 1.5f);
         menuInicialGroup.interactable = false;
         opcoesGroup.interactable = false;
     }
