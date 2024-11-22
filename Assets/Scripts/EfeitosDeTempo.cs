@@ -8,11 +8,13 @@ public class EfeitosDeTempo : MonoBehaviour
     private void OnEnable()
     {
         GerenciadorDeJogo.mudouDeEstado += AoMudarDeEstado;
+        Instanciador.blocoDestruido += AoDestruirBloco;
     }
 
     private void OnDisable()
     {
         GerenciadorDeJogo.mudouDeEstado -= AoMudarDeEstado;
+        Instanciador.blocoDestruido -= AoDestruirBloco;
     }
 
     void AoMudarDeEstado(GerenciadorDeJogo.EstadosDeJogo novoEstado)
@@ -34,6 +36,23 @@ public class EfeitosDeTempo : MonoBehaviour
         {
             executandoEfeito = true;
             Time.timeScale = novaVelocidade;
+            yield return new WaitForSecondsRealtime(duracao);
+            Time.timeScale = 1;
+            executandoEfeito = false;
+        }
+    }
+
+    void AoDestruirBloco()
+    {
+        StartCoroutine(FrameFreeze(0.085f));
+    }
+
+    IEnumerator FrameFreeze(float duracao)
+    {
+        if (!executandoEfeito)
+        {
+            executandoEfeito = true;
+            Time.timeScale = 0;
             yield return new WaitForSecondsRealtime(duracao);
             Time.timeScale = 1;
             executandoEfeito = false;

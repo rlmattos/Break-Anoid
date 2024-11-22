@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class Instanciador : MonoBehaviour
     int numLinhas;
     int blocosAtuais;
     WaitForSeconds esperaEntreInstancias;
+    public static Action blocoDestruido;
 
     IEnumerator Start()
     {
@@ -37,5 +39,7 @@ public class Instanciador : MonoBehaviour
         bloco.blocoDestruido -= BlocoDestruido;
         if (blocosAtuais <= 0)
             GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Vitoria);
+        else
+            blocoDestruido?.Invoke();
     }
 }
