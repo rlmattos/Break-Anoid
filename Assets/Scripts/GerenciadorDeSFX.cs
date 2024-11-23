@@ -25,7 +25,9 @@ public class GerenciadorDeSFX : MonoBehaviour
         UI_Hover,
         UI_Move,
         UI_Block,
-        BolinhaPerde
+        BolinhaPerde,
+        UI_Vitoria,
+        UI_Derrota
     }
 
     private void Awake()
@@ -47,7 +49,7 @@ public class GerenciadorDeSFX : MonoBehaviour
         if (!ligado)
             return;
         
-        //Debug.Log($"Tocando {efeitoParaInstanciar} com volume {volume} e pitch {pitch}");
+        Debug.Log($"Tocando {efeitoParaInstanciar} com volume {volume} e pitch {pitch}");
 
         switch (efeitoParaInstanciar)
         {

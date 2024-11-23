@@ -32,6 +32,7 @@ public class PainelVitoria : MonoBehaviour
     void AbrePainel()
     {
         painelAnim.Play("Aparece");
+        GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Vitoria, 1, 1);
     }
 
     void FechaPainel(bool semAnimacao = false)

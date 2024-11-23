@@ -69,6 +69,8 @@ public class GerenciadorDeJogo : MonoBehaviour
                 estadoAtual = novoEstado;
                 break;
         }
+        if (estadoAnterior == estadoAtual)
+            return;
         Debug.Log($"Novo estado: {estadoAtual}");
         mudouDeEstado?.Invoke(estadoAtual);
     }
