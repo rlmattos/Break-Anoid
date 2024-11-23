@@ -13,7 +13,8 @@ public class GerenciadorDeEfeitos : MonoBehaviour
     {
         BlocoHit,
         BlocoDestroi,
-        BolinhaDestroi
+        BolinhaDestroi,
+        BolinhaHit
     }
 
     private void Awake()

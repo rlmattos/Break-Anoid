@@ -17,6 +17,11 @@ public class EfeitosDeTempo : MonoBehaviour
         Instanciador.blocoDestruido -= AoDestruirBloco;
     }
 
+    private void Start()
+    {
+        executandoEfeito = false;
+    }
+
     void AoMudarDeEstado(GerenciadorDeJogo.EstadosDeJogo novoEstado)
     {
         switch (novoEstado)

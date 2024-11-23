@@ -123,12 +123,12 @@ public class Bolinha : MonoBehaviour
         if (distanciaColisao.x > distanciaColisao.y)
         {
             if (Time.time - temposDosRepatimentos.x > intervaloDeRebatimento)
-                Rebate(true);
+                Rebate(true, pontoColisao, contatos[0].normal);
         }
         else
         {
             if (Time.time - temposDosRepatimentos.y > intervaloDeRebatimento)
-                Rebate(false);
+                Rebate(false, pontoColisao, contatos[0].normal);
         }
 
         Bloco bloco = contatos[0].collider.gameObject.GetComponentInParent<Bloco>();
@@ -153,7 +153,7 @@ public class Bolinha : MonoBehaviour
         }
     }
 
-    void Rebate(bool horizontal)
+    void Rebate(bool horizontal, Vector3 pontoDeColisao, Vector3 normalDaColisao)
     {
         if (horizontal)
         {
@@ -168,6 +168,10 @@ public class Bolinha : MonoBehaviour
             cameraShake.GenerateImpulseAtPositionWithVelocity(rb.position, (Vector3.up * -velAtual.y).normalized * 0.05f);
         }
         anim.Play("Hit");
+        GerenciadorDeEfeitos.instancia.InstanciaEfeito(
+            GerenciadorDeEfeitos.Efeitos.BolinhaHit,
+            pontoDeColisao,
+            Quaternion.LookRotation(normalDaColisao));
     }
 
     void GameOver()
