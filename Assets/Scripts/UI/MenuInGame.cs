@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MenuInGame : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class MenuInGame : MonoBehaviour
     [SerializeField] AudioMixer mixer;
     [SerializeField] Animator animOpcoes;
     bool opcoesAbertas;
+
+    public static Action<bool> pausouOuDespausou;
 
     private void OnEnable()
     {
@@ -81,6 +84,7 @@ public class MenuInGame : MonoBehaviour
         GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Pause);
         Time.timeScale = 0;
         Debug.Log("Jogo pausado");
+        pausouOuDespausou?.Invoke(true);
     }
 
     IEnumerator DespausaJogo()
@@ -89,6 +93,7 @@ public class MenuInGame : MonoBehaviour
         Time.timeScale = 1;
         Debug.Log("Jogo DESpausado");
         GerenciadorDeJogo.RetornaAoEstadoAnterior();
+        pausouOuDespausou?.Invoke(false);
     }
 
     public void ClicouTelaCheia(bool novoEstado)

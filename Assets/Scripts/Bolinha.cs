@@ -29,12 +29,14 @@ public class Bolinha : MonoBehaviour
     {
         Vida.gameOver += GameOver;
         GerenciadorDeJogo.mudouDeEstado += MudouDeEstado;
+        MenuInGame.pausouOuDespausou += AoPausarOuDespausar;
     }
 
     private void OnDisable()
     {
         Vida.gameOver -= GameOver;
         GerenciadorDeJogo.mudouDeEstado -= MudouDeEstado;
+        MenuInGame.pausouOuDespausou -= AoPausarOuDespausar;
     }
 
     void Start()
@@ -67,11 +69,18 @@ public class Bolinha : MonoBehaviour
         
     }
 
+    void AoPausarOuDespausar(bool pausou)
+    {
+        if (pausou)
+            rb.bodyType = RigidbodyType2D.Kinematic;
+        else
+            rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+
     private void FixedUpdate()
     {
         if (GerenciadorDeJogo.estadoAtual != GerenciadorDeJogo.EstadosDeJogo.EmJogo)
         {
-            rb.bodyType = RigidbodyType2D.Static;
             return;
         }
 

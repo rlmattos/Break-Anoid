@@ -9,6 +9,7 @@ public class FadeDeTela : MonoBehaviour
 {
     static Image spriteDeFade;
     static bool inicializado;
+    public static Action<string> mudouDeCena;
 
     public static void CarregaCena(string nomeDaCena, float duracaoDoFade, float tempoDeEspera = 3)
     {
@@ -35,6 +36,7 @@ public class FadeDeTela : MonoBehaviour
 
         await AplicaFadeAssincrono(Color.clear, Color.black, duracaoDoFade);
         carregamentoDeCena.allowSceneActivation = true;
+        mudouDeCena?.Invoke(nomeDaCena);
         await Task.Delay(150);
         await AplicaFadeAssincrono(Color.black, Color.clear, duracaoDoFade * 0.5f);
 
