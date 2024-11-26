@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe96913479d08045ae43ec90a24fac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFX_MixerGroup: {fileID: 24300002, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
+  SFX_MixerGroup: {fileID: -6146352158288836305, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   ligado: 1
   databaseEfeitos:
   - {fileID: 11400000, guid: d1dd7e4fb5c36c242845b5392ffa65af, type: 2}
@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8810c4b254312d4cbd52f90525bebe0, type: 2}
   - {fileID: 11400000, guid: 3d1d6861fe8f2a544856edf519110170, type: 2}
   - {fileID: 11400000, guid: 43488abc8a3869946922afa1d8b010d9, type: 2}
+  - {fileID: 11400000, guid: c344026a1a9b1e34e94295718578b638, type: 2}
   palhetaMove: {fileID: 3923835915001413731}
 --- !u!82 &3923835915001413731
 AudioSource:
@@ -69,7 +70,7 @@ AudioSource:
   m_GameObject: {fileID: 1876307236449169651}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
+  OutputAudioMixerGroup: {fileID: -6146352158288836305, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8fa3aca29a90d7e498ea0ad0aba41a70, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

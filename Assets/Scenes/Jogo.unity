@@ -45433,14 +45433,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GerenciadorDeSFX
       objectReference: {fileID: 0}
-    - target: {fileID: 3923835915001413731, guid: 93c8d20d49907ab4c89ccb4faec64da9, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -6146352158288836305, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
-    - target: {fileID: 4960423057059663292, guid: 93c8d20d49907ab4c89ccb4faec64da9, type: 3}
-      propertyPath: SFX_MixerGroup
-      value: 
-      objectReference: {fileID: -6146352158288836305, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
     - target: {fileID: 6888335220401059113, guid: 93c8d20d49907ab4c89ccb4faec64da9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.7090823

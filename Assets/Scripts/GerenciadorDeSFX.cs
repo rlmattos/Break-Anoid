@@ -10,7 +10,7 @@ public class GerenciadorDeSFX : MonoBehaviour
     [SerializeField] AudioMixerGroup SFX_MixerGroup;
     [SerializeField] bool ligado = true;
     [SerializeField] SFX_SO[] databaseEfeitos;
-    AudioSource[] trilhas = new AudioSource[5];
+    AudioSource[] trilhas = new AudioSource[15];
     [SerializeField] AudioSource palhetaMove;
     int quantidadeEfeitos = -1;
 
@@ -27,7 +27,8 @@ public class GerenciadorDeSFX : MonoBehaviour
         UI_Block,
         BolinhaPerde,
         UI_Vitoria,
-        UI_Derrota
+        UI_Derrota,
+        Bloco_Aparece
     }
 
     private void Awake()
@@ -36,6 +37,10 @@ public class GerenciadorDeSFX : MonoBehaviour
             instancia = this;
         else
             Destroy(gameObject);
+    }
+
+    private void Start()
+    {
         quantidadeEfeitos = databaseEfeitos.Length;
         for (int i = 0; i < trilhas.Length; i++)
         {
