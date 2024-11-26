@@ -189,6 +189,7 @@ public class Bolinha : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
         rb.simulated = false;
         tr.position = Vector3.up * -100;
+        CancelInvoke("Reseta");
     }
 
     void MudouDeEstado(GerenciadorDeJogo.EstadosDeJogo novoEstado)

@@ -30,7 +30,7 @@ public class EfeitosDeTempo : MonoBehaviour
                 StartCoroutine(SlowMotion(2.5f, 0.075f));
                 break;
             case GerenciadorDeJogo.EstadosDeJogo.Derrota:
-                StartCoroutine(SlowMotion(2, 0.1f));
+                StartCoroutine(SlowMotion(2.5f, 0.075f));
                 break;
         }
     }
