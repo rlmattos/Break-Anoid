@@ -41,7 +41,7 @@ public class GerenciadorDeJogo : MonoBehaviour
         mudouDeEstado?.Invoke(estadoAtual);
     }
 
-    public static void AtualizaEstado(EstadosDeJogo novoEstado, bool atualizacaoForcada = false)
+    public static bool AtualizaEstado(EstadosDeJogo novoEstado, bool atualizacaoForcada = false)
     {
         switch (estadoAtual)
         {
@@ -70,9 +70,10 @@ public class GerenciadorDeJogo : MonoBehaviour
                 break;
         }
         if (estadoAnterior == estadoAtual)
-            return;
+            return false;
         Debug.Log($"Novo estado: {estadoAtual}");
         mudouDeEstado?.Invoke(estadoAtual);
+        return true;
     }
 
     private void Update()

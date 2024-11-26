@@ -113,9 +113,18 @@ public class Bolinha : MonoBehaviour
         tr.position = trPalheta.position;
         tr.rotation = Quaternion.identity;
         tr.SetParent(trPalheta);
+        if (comAnimacao)
+        {
+            anim.Play("Respawn");
+            Invoke("MudaEstadoParaAguardando", 1);
+        }
+        else
+            GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
+    }
+
+    void MudaEstadoParaAguardando()
+    {
         GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Aguardando);
-        if(comAnimacao)
-            anim.Play("Respawn");        
     }
 
     private void CalculaColisao()

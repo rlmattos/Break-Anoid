@@ -22,6 +22,7 @@ public class Palheta : MonoBehaviour
             !GerenciadorDeJogo.estadoAtual.HasFlag(GerenciadorDeJogo.EstadosDeJogo.Aguardando))
         {
             inputHorizontal = 0;
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaMove, 0, 1f);
             return;
         }
 

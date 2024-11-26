@@ -60,17 +60,26 @@ public class MenuInGame : MonoBehaviour
 
     public void ClicouOpcoes()
     {
+        if (GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Intro ||
+            GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Vitoria ||
+            GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Derrota ||
+            GerenciadorDeJogo.estadoAtual == 0)
+            return;
         opcoesAbertas = !opcoesAbertas;
         animOpcoes.SetBool("Aberto", opcoesAbertas);
         Debug.Log($"Opcoes abertas {opcoesAbertas}");
         if (opcoesAbertas)
         {
+            if(GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Pause)
+                GerenciadorDeJogo.RetornaAoEstadoAnterior();
+            StopCoroutine("DespausaJogo");
             opcoesGroup.interactable = true;
             sliderVolume.Select();
             PausaJogo();
         }
         else
         {
+            StopCoroutine("DespausaJogo");
             opcoesGroup.interactable = false;
             Debug.Log("Despausando");
             StartCoroutine(DespausaJogo());
@@ -79,19 +88,19 @@ public class MenuInGame : MonoBehaviour
 
     void PausaJogo()
     {
-        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Pause);
         Time.timeScale = 0;
         Debug.Log("Jogo pausado");
         pausouOuDespausou?.Invoke(true);
+        GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Pause);
     }
 
     IEnumerator DespausaJogo()
     {
         yield return new WaitForSecondsRealtime(1);
         Time.timeScale = 1;
-        Debug.Log("Jogo DESpausado");
-        GerenciadorDeJogo.RetornaAoEstadoAnterior();
+        Debug.Log("Jogo DESpausado");        
         pausouOuDespausou?.Invoke(false);
+        GerenciadorDeJogo.RetornaAoEstadoAnterior();
     }
 
     public void ClicouTelaCheia(bool novoEstado)
