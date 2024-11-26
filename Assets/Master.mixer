@@ -19,6 +19,25 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-6146352158288836305
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 3feb6a43c099c3644a3f3071675000e2
+  m_Children: []
+  m_Volume: c31f0b1f4683b874f8f70f3d6f31b267
+  m_Pitch: 2b30f37afdb21294a900770e43d29793
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -3169981270990546063}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-3326089272946700588
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -29,6 +48,20 @@ AudioMixerEffectController:
   m_EffectID: 38bf4d177c8bec1488ede6abec1466b4
   m_EffectName: Attenuation
   m_MixLevel: fbd86af130530b746b4a9ab14cd55553
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-3169981270990546063
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 23c866ff0b732c14cabdb7b4f0b51857
+  m_EffectName: Attenuation
+  m_MixLevel: f4c977a491d6e9a4792d7d6eba16974d
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
@@ -125,6 +158,8 @@ AudioMixerController:
   - {fileID: 3734119618930604614}
   - {fileID: 24500006}
   - {fileID: -1159330175322342360}
+  - {fileID: 7822361992323715410}
+  - {fileID: 4916679693647040149}
   m_StartSnapshot: {fileID: 3734119618930604614}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -139,9 +174,10 @@ AudioMixerController:
     - 98fbfbf27116b954db96529a4b8b3b04
     - 7f4b9abda4c3cfa45b9da70d142b4071
     - 1af90cfb7d5eb6d4e98fc181efa94962
+    - 3feb6a43c099c3644a3f3071675000e2
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 3734119618930604614}
+  m_TargetSnapshot: {fileID: 7822361992323715410}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -153,6 +189,7 @@ AudioMixerGroupController:
   m_GroupID: 5cc610e1e59f554439b5d8b5e95cb857
   m_Children:
   - {fileID: 4215960895341504349}
+  - {fileID: -6146352158288836305}
   m_Volume: 1a8886b82c4a3b84694cb3dad2ef85a3
   m_Pitch: 45ff7f7091b6dc8459d100ba54eeb7b8
   m_Send: 00000000000000000000000000000000
@@ -227,6 +264,7 @@ AudioMixerSnapshotController:
     a870d27af52ccc84cbef3374e90db3a2: -20.09816
     49f23c9bdc1c6e248a1611b5e4007474: -20.09816
     6bfbaf4e2c81cee4d97f20fe060a3f10: 300
+    c31f0b1f4683b874f8f70f3d6f31b267: -20.610773
   m_TransitionOverrides: {}
 --- !u!244 &3755310022324546802
 AudioMixerEffectController:
@@ -268,6 +306,28 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!245 &4916679693647040149
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Derrota
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: d6fe9e32cf6786448b725d79c2ec8899
+  m_FloatValues:
+    34e603901fe70af44880b0c5d72c0966: -20.8
+    951dc2a028ebc8c48878d2097eca8ec2: 38
+    834c76e220446504ba53f7fab38d0d84: 1
+    27074d65f95862b4a88f4e2f29f60db2: 1
+    8852c557c0b9c144e8787e77f18e6239: -7.7
+    67c3b809094739d4e80d2a6a166b0a5d: 182
+    59483d49ee60a15479565ce416311cef: 1.5
+    6a51f2b9a51e80d4fb73a86f0545c048: 6.8
+    94c9834defeb61148ad1fbf3f2061ecd: 50
+    6bfbaf4e2c81cee4d97f20fe060a3f10: 300
+    aec613bfaff6c8d4c93e8bfe0e613533: 0.82
+  m_TransitionOverrides: {}
 --- !u!244 &5749780531910861685
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -355,6 +415,28 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!245 &7822361992323715410
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "VIt\xF3ria"
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 49e5a4f98cb8d294b8504186ac8ff7b2
+  m_FloatValues:
+    34e603901fe70af44880b0c5d72c0966: -13.1
+    951dc2a028ebc8c48878d2097eca8ec2: 38
+    834c76e220446504ba53f7fab38d0d84: 1
+    27074d65f95862b4a88f4e2f29f60db2: 1
+    8852c557c0b9c144e8787e77f18e6239: -7.7
+    67c3b809094739d4e80d2a6a166b0a5d: 264
+    59483d49ee60a15479565ce416311cef: 1.5
+    6a51f2b9a51e80d4fb73a86f0545c048: 3.62
+    94c9834defeb61148ad1fbf3f2061ecd: 95.6
+    6bfbaf4e2c81cee4d97f20fe060a3f10: 300
+    aec613bfaff6c8d4c93e8bfe0e613533: 1
+  m_TransitionOverrides: {}
 --- !u!244 &7973244165169228691
 AudioMixerEffectController:
   m_ObjectHideFlags: 3

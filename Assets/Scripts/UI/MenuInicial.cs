@@ -94,7 +94,7 @@ public class MenuInicial : MonoBehaviour
 
     public void AlterouVolume(float novoVolume)
     {
-        mixer.SetFloat("MasterVolume", Mathf.Log10(novoVolume) * 20);
+        mixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Lerp(0.0001f, 1, sliderVolume.value / sliderVolume.maxValue)) * 20);
         GameSave.SalvaVolume(novoVolume);
     }
 }

@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
 using System;
 
 public class MenuInGame : MonoBehaviour
@@ -104,7 +102,7 @@ public class MenuInGame : MonoBehaviour
 
     public void AlterouVolume(float novoVolume)
     {
-        mixer.SetFloat("MasterVolume", Mathf.Log10(novoVolume) * 20);
+        mixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Lerp(0.0001f, 1, sliderVolume.value / sliderVolume.maxValue)) * 20);
         GameSave.SalvaVolume(novoVolume);
     }
 }
