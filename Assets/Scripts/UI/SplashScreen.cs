@@ -13,6 +13,6 @@ public class SplashScreen : MonoBehaviour
         FadeDeTela.AplicaFade(Color.black, Color.clear, duracaoFadeIn);
         yield return new WaitForSeconds(duracaoFadeOut);
         yield return new WaitForSeconds(tempoDeExibicao);
-        FadeDeTela.CarregaCena("MenuInicial", duracaoFadeOut, 1);
+        FadeDeTela.CarregaCena("MenuInicial", duracaoFadeOut, 0);
     }
 }

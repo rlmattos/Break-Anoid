@@ -16,6 +16,7 @@ public class MenuInicial : MonoBehaviour
 
     [SerializeField] AudioMixer mixer;
     [SerializeField] Animator animOpcoes;
+    Animator animMenuInicial;
     bool opcoesAbertas;
 
     private void OnEnable()
@@ -46,13 +47,15 @@ public class MenuInicial : MonoBehaviour
         ClicouTelaCheia(toggleTelaCheia.isOn);
         sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(0.8f));
         AlterouVolume(sliderVolume.value);
+        animMenuInicial = GetComponent<Animator>();
     }
 
     public void ClicouJogar()
     {
-        FadeDeTela.CarregaCena("Jogo", 1);
+        FadeDeTela.CarregaCena("Jogo", 2);
         menuInicialGroup.interactable = false;
         opcoesGroup.interactable = false;
+        animMenuInicial.Play("MenuInicial_Start");
     }
 
     public void ClicouSair()

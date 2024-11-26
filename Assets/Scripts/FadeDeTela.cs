@@ -22,9 +22,11 @@ public class FadeDeTela : MonoBehaviour
     static async void ExecutaCarregamento(string nomeDaCena, float duracaoDoFade, float duracaoDaEspera)
     {
         await AplicaFadeAssincrono(Color.clear, Color.black, duracaoDoFade);
-        SceneManager.LoadScene("Loading");
-        await AplicaFadeAssincrono(Color.black, Color.clear, duracaoDoFade * 0.5f);
-
+        if (duracaoDaEspera > 0)
+        {
+            SceneManager.LoadScene("Loading");
+            await AplicaFadeAssincrono(Color.black, Color.clear, duracaoDoFade * 0.5f);
+        }
         AsyncOperation carregamentoDeCena = SceneManager.LoadSceneAsync(nomeDaCena);
         carregamentoDeCena.allowSceneActivation = false;
         while (carregamentoDeCena.progress < 0.8)
@@ -32,9 +34,11 @@ public class FadeDeTela : MonoBehaviour
             Debug.Log(carregamentoDeCena.progress);
             await Task.Yield();
         }
-        await Task.Delay((int)(1000 * duracaoDaEspera));
-
-        await AplicaFadeAssincrono(Color.clear, Color.black, duracaoDoFade);
+        if (duracaoDaEspera > 0)
+        {
+            await Task.Delay((int)(1000 * duracaoDaEspera));
+            await AplicaFadeAssincrono(Color.clear, Color.black, duracaoDoFade);
+        }
         carregamentoDeCena.allowSceneActivation = true;
         mudouDeCena?.Invoke(nomeDaCena);
         await Task.Delay(150);
