@@ -29,7 +29,10 @@ public class GerenciadorDeSFX : MonoBehaviour
         UI_Vitoria,
         UI_Derrota,
         Bloco_Aparece,
-        MenuInicial_Start
+        MenuInicial_Start,
+        UI_Opcoes_Fechar,
+        UI_Opcoes_Abrir,
+        UI_Menu_Intro,
     }
 
     private void Awake()

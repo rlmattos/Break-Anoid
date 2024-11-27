@@ -87,12 +87,14 @@ public class MenuInicial : MonoBehaviour
             menuInicialGroup.interactable = false;
             opcoesGroup.interactable = true;
             sliderVolume.Select();
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Opcoes_Abrir, 1, 1);
         }
         else
         {
             menuInicialGroup.interactable = true;
             opcoesGroup.interactable = false;
             botaoAbreOpcoes.Select();
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Opcoes_Fechar, 1, 1);
         }
     }
 

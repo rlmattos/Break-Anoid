@@ -79,6 +79,7 @@ public class MenuInGame : MonoBehaviour
             opcoesGroup.interactable = true;
             sliderVolume.Select();
             PausaJogo();
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Opcoes_Abrir, 1, 1);
         }
         else
         {
@@ -86,6 +87,7 @@ public class MenuInGame : MonoBehaviour
             opcoesGroup.interactable = false;
             Debug.Log("Despausando");
             StartCoroutine(DespausaJogo());
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Opcoes_Fechar, 1, 1);
         }
     }
 
