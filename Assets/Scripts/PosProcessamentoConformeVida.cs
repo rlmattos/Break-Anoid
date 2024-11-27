@@ -25,7 +25,7 @@ public class PosProcessamentoConformeVida : MonoBehaviour
 
     void AoPerderVida(float vidaAtual)
     {
-        valorAtual = 1 - ((vidaAtual) / Vida.VidaMaxima);
+        valorAtual = 1 - ((vidaAtual+1) / Vida.VidaMaxima);
     }
 
     IEnumerator AtualizaEfeito()

@@ -33,6 +33,8 @@ public class PainelVitoria : MonoBehaviour
     {
         painelAnim.Play("Aparece");
         GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Vitoria, 1, 1);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     void FechaPainel(bool semAnimacao = false)

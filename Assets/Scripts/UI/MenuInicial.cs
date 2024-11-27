@@ -49,6 +49,8 @@ public class MenuInicial : MonoBehaviour
         sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(0.8f));
         AlterouVolume(sliderVolume.value);
         animMenuInicial = GetComponent<Animator>();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ClicouJogar()

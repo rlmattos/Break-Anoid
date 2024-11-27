@@ -41,6 +41,9 @@ public class MenuInGame : MonoBehaviour
         ClicouTelaCheia(toggleTelaCheia.isOn);
         sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(0.8f));
         AlterouVolume(sliderVolume.value);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -72,7 +75,7 @@ public class MenuInGame : MonoBehaviour
         {
             if(GerenciadorDeJogo.estadoAtual == GerenciadorDeJogo.EstadosDeJogo.Pause)
                 GerenciadorDeJogo.RetornaAoEstadoAnterior();
-            StopCoroutine("DespausaJogo");
+            StopAllCoroutines();
             opcoesGroup.interactable = true;
             sliderVolume.Select();
             PausaJogo();
@@ -92,6 +95,8 @@ public class MenuInGame : MonoBehaviour
         Debug.Log("Jogo pausado");
         pausouOuDespausou?.Invoke(true);
         GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Pause);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     IEnumerator DespausaJogo()
@@ -101,6 +106,8 @@ public class MenuInGame : MonoBehaviour
         Debug.Log("Jogo DESpausado");        
         pausouOuDespausou?.Invoke(false);
         GerenciadorDeJogo.RetornaAoEstadoAnterior();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;        
     }
 
     public void ClicouTelaCheia(bool novoEstado)

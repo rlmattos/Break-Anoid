@@ -10,6 +10,8 @@ public class SplashScreen : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         FadeDeTela.AplicaFade(Color.black, Color.clear, duracaoFadeIn);
         yield return new WaitForSeconds(duracaoFadeOut);
         yield return new WaitForSeconds(tempoDeExibicao);

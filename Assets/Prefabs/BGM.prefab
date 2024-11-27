@@ -51,8 +51,8 @@ MonoBehaviour:
   inGame: {fileID: 24500006, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   pause: {fileID: -1159330175322342360, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   menu: {fileID: 3734119618930604614, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
-  vitoria: {fileID: 0}
-  derrota: {fileID: 0}
+  vitoria: {fileID: 7822361992323715410, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
+  derrota: {fileID: 4916679693647040149, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
 --- !u!1 &6796106751136417811
 GameObject:
   m_ObjectHideFlags: 0

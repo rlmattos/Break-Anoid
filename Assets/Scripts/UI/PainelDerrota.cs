@@ -33,6 +33,8 @@ public class PainelDerrota : MonoBehaviour
     {
         painelAnim.Play("Aparece");
         GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.UI_Derrota, 1, 1);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     void FechaPainel(bool semAnimacao = false)
