@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26258cd9541bd1243abd7cc3740d9e33, type: 3}
   m_Name: SFX_Palheta_Hit
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 650b600568e0e3a49846ab12b05c895c, type: 3}
+  clip: {fileID: 8300000, guid: b93bfc977c41353448d7220fc4e13425, type: 3}
   efeito: 1
