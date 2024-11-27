@@ -28,7 +28,8 @@ public class GerenciadorDeSFX : MonoBehaviour
         BolinhaPerde,
         UI_Vitoria,
         UI_Derrota,
-        Bloco_Aparece
+        Bloco_Aparece,
+        MenuInicial_Start
     }
 
     private void Awake()

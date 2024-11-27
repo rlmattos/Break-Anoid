@@ -18,6 +18,7 @@ public class MenuInicial : MonoBehaviour
     [SerializeField] Animator animOpcoes;
     Animator animMenuInicial;
     bool opcoesAbertas;
+    bool carregandoJogo;
 
     private void OnEnable()
     {
@@ -52,10 +53,14 @@ public class MenuInicial : MonoBehaviour
 
     public void ClicouJogar()
     {
+        if (carregandoJogo)
+            return;
+        carregandoJogo = true;
         FadeDeTela.CarregaCena("Jogo", 2);
         menuInicialGroup.interactable = false;
         opcoesGroup.interactable = false;
         animMenuInicial.Play("MenuInicial_Start");
+        GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.MenuInicial_Start, 1, 1);
     }
 
     public void ClicouSair()
