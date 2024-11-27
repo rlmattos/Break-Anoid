@@ -47,9 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7d6513b8f484c4089ef1a379e26aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   inGame: {fileID: 24500006, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   pause: {fileID: -1159330175322342360, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
   menu: {fileID: 3734119618930604614, guid: 345c2b9f23cf79e48824f700f084e360, type: 2}
+  vitoria: {fileID: 0}
+  derrota: {fileID: 0}
 --- !u!1 &6796106751136417811
 GameObject:
   m_ObjectHideFlags: 0

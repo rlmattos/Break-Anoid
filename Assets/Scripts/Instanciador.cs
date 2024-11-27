@@ -11,14 +11,18 @@ public class Instanciador : MonoBehaviour
     [SerializeField] Color[] linhas;
     int numLinhas;
     int blocosAtuais;
+    int blocosTotais;
     WaitForSeconds esperaEntreInstancias;
-    public static Action blocoDestruido;
+    /// <summary>
+    /// Informa o progresso atual do jogo. Quanto mais blocos destruidos, mais perto de 1;
+    /// </summary>
+    public static Action<float> blocoDestruido;
 
     IEnumerator Start()
     {
         Transform tr = transform;
         numLinhas = linhas.Length;
-        int numDeBlocos = numLinhas * colunas;
+        blocosTotais = numLinhas * colunas;
         esperaEntreInstancias = new WaitForSeconds(0.05f);
         yield return new WaitForSeconds(0.5f);
         for (int linhaAtual = 0; linhaAtual < numLinhas; linhaAtual++)
@@ -29,7 +33,7 @@ public class Instanciador : MonoBehaviour
                 GerenciadorDeSFX.instancia.TocaSFX(
                     GerenciadorDeSFX.Efeitos.Bloco_Aparece,
                     1,
-                    1 + Mathf.Lerp(0, 1.0f, (((linhaAtual * colunas) + colunaAtual) /(float) numDeBlocos)));
+                    1 + Mathf.Lerp(0, 1.0f, (((linhaAtual * colunas) + colunaAtual) /(float) blocosTotais)));
                 blocoAtual.DefineCor(linhas[linhaAtual]);
                 blocoAtual.blocoDestruido += BlocoDestruido;
                 blocosAtuais++;
@@ -45,6 +49,9 @@ public class Instanciador : MonoBehaviour
         if (blocosAtuais <= 0)
             GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Vitoria);
         else
-            blocoDestruido?.Invoke();
+        {
+            Debug.Log($"progresso: {1-(blocosAtuais / (float)blocosTotais)}");
+            blocoDestruido?.Invoke(1-(blocosAtuais / (float)blocosTotais));
+        }
     }
 }

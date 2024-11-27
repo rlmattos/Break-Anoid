@@ -47,9 +47,9 @@ public class EfeitosDeTempo : MonoBehaviour
         }
     }
 
-    void AoDestruirBloco()
+    void AoDestruirBloco(float progresso)
     {
-        StartCoroutine(FrameFreeze(0.085f));
+        StartCoroutine(FrameFreeze(Mathf.Lerp(0.01f, 0.1f, progresso)));
     }
 
     IEnumerator FrameFreeze(float duracao)

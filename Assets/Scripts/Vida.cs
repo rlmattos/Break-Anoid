@@ -8,10 +8,12 @@ public class Vida : MonoBehaviour
 {
     [SerializeField] Animator[] sprites;
     [SerializeField] int vidaMaxima = 3;
+    public static int VidaMaxima;
     int vidaAtual;
     WaitForSeconds intervaloDeAtualizacao;
 
     public static Action gameOver;
+    public static Action<float> atualizouVida;
 
     private void OnEnable()
     {
@@ -28,6 +30,7 @@ public class Vida : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         intervaloDeAtualizacao = new WaitForSeconds(0.15f);
         StartCoroutine(AtualizaVida(vidaMaxima, true));
+        VidaMaxima = vidaMaxima;
     }
 
     public IEnumerator AtualizaVida(int novaVida, bool atualizacaoForcada = false)
@@ -53,7 +56,7 @@ public class Vida : MonoBehaviour
         {
             gameOver?.Invoke();
         }
-
+        atualizouVida?.Invoke(vidaAtual);
     }
 
     void PerdeVida()
