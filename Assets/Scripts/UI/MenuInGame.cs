@@ -39,7 +39,7 @@ public class MenuInGame : MonoBehaviour
 
         toggleTelaCheia.SetIsOnWithoutNotify(GameSave.CarregaTelaCheia(true));
         ClicouTelaCheia(toggleTelaCheia.isOn);
-        sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(0.8f));
+        sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(9));
         AlterouVolume(sliderVolume.value);
 
         Cursor.visible = false;

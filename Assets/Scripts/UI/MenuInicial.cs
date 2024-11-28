@@ -46,7 +46,7 @@ public class MenuInicial : MonoBehaviour
         botaoIniciar.Select();
         toggleTelaCheia.SetIsOnWithoutNotify(GameSave.CarregaTelaCheia(true));
         ClicouTelaCheia(toggleTelaCheia.isOn);
-        sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(0.8f));
+        sliderVolume.SetValueWithoutNotify(GameSave.CarregaVolume(9));
         AlterouVolume(sliderVolume.value);
         animMenuInicial = GetComponent<Animator>();
         Cursor.visible = true;
