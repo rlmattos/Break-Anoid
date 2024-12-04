@@ -1,0 +1,26 @@
+Booster
+Full Spectrum
+Inimical
+Pureo
+Relic Ship
+
+1**Jupiter Spikes
+1**Mister Popper
+1**Weirder Stuff
+
+2**Resonant Dawn
+2*Wide Screena
+
+3**Squeal
+		4	WT	Scrap Yard
+
+	3	4	WT	Square Saw I
+	3		WT	Smooth Square
+	2		LD	Bright & Hollow
+	2		WT 	Sample & Hold
+	2		LD	Mini Mono Magic
+	1		RAW	Double Square
+	1		RAW	Triple DCO
+	0		BS	Chunky Bottom
+Base **Transmitter
+

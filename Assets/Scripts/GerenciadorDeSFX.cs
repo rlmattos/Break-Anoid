@@ -58,7 +58,7 @@ public class GerenciadorDeSFX : MonoBehaviour
         if (!ligado)
             return;
         
-        Debug.Log($"Tocando {efeitoParaInstanciar} com volume {volume} e pitch {pitch}");
+        //Debug.Log($"Tocando {efeitoParaInstanciar} com volume {volume} e pitch {pitch}");
 
         switch (efeitoParaInstanciar)
         {

@@ -8,12 +8,23 @@ public class Palheta : MonoBehaviour
     [SerializeField] float velMovimento;
     float inputHorizontal;
     Vector2 velAtual;
+    public Vector2 VelAtual => velAtual;
     Rigidbody2D rb;
     [SerializeField] Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        Instanciador.terminouDeInstanciar += AnimaIntro;
+    }
+
+    private void OnDisable()
+    {
+        Instanciador.terminouDeInstanciar -= AnimaIntro;
     }
 
     void Update()
@@ -59,5 +70,10 @@ public class Palheta : MonoBehaviour
     public void Rebate()
     {
         anim.Play("Rebate");
+    }
+
+    void AnimaIntro()
+    {
+        anim.Play("PalhetaIntro");
     }
 }

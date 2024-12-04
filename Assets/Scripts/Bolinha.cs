@@ -43,7 +43,7 @@ public class Bolinha : MonoBehaviour
     {
         tr = transform;
         rb = GetComponent<Rigidbody2D>();
-        Reseta(false); 
+        Reseta(false);
         GerenciadorDeJogo.AtualizaEstado(GerenciadorDeJogo.EstadosDeJogo.Intro);
     }
 
@@ -66,7 +66,7 @@ public class Bolinha : MonoBehaviour
             contadorIntervaloEntreQuebras -= Time.deltaTime;
         else
             blocosQuebradosEmSequencia = 0;
-        
+
     }
 
     void AoPausarOuDespausar(bool pausou)
@@ -136,18 +136,7 @@ public class Bolinha : MonoBehaviour
         Vector2 pontoColisao = contatos[0].point;
         Debug.DrawLine(rb.position, pontoColisao, Color.red, 0.1f);
         Vector2 distanciaColisao = pontoColisao - rb.position;
-        distanciaColisao.x = Mathf.Abs(distanciaColisao.x);
-        distanciaColisao.y = Mathf.Abs(distanciaColisao.y);
-        if (distanciaColisao.x > distanciaColisao.y)
-        {
-            if (Time.time - temposDosRepatimentos.x > intervaloDeRebatimento)
-                Rebate(true, pontoColisao, contatos[0].normal);
-        }
-        else
-        {
-            if (Time.time - temposDosRepatimentos.y > intervaloDeRebatimento)
-                Rebate(false, pontoColisao, contatos[0].normal);
-        }
+        Palheta palheta = null;
 
         Bloco bloco = contatos[0].collider.gameObject.GetComponentInParent<Bloco>();
         if (bloco)
@@ -155,23 +144,41 @@ public class Bolinha : MonoBehaviour
             contadorIntervaloEntreQuebras = intervaloEntreQuebras;
             blocosQuebradosEmSequencia++;
             GerenciadorDeEfeitos.instancia.InstanciaEfeito(GerenciadorDeEfeitos.Efeitos.BlocoHit, pontoColisao, Quaternion.identity);
-            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.BlocoHit,1, 0.9f + (0.12f * blocosQuebradosEmSequencia));
+            GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.BlocoHit, 1, 0.9f + (0.12f * blocosQuebradosEmSequencia));
             bloco.Destroi();
-        }else
+        }
+        else
         {
             if (contatos[0].transform.name.Contains("Parede"))
                 GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.ParedeHit, 1, 0.8f);
             else
             {
-                Palheta palheta = contatos[0].collider.gameObject.GetComponentInParent<Palheta>();
-                if(palheta)
+                palheta = contatos[0].collider.gameObject.GetComponentInParent<Palheta>();
+                if (palheta)
+                {
                     palheta.Rebate();
+                }
                 GerenciadorDeSFX.instancia.TocaSFX(GerenciadorDeSFX.Efeitos.PalhetaHit, 1, 1.1f);
             }
         }
+
+        distanciaColisao.x = Mathf.Abs(distanciaColisao.x);
+        distanciaColisao.y = Mathf.Abs(distanciaColisao.y);
+        if (distanciaColisao.x > distanciaColisao.y)
+        {
+            if (Time.time - temposDosRepatimentos.x > intervaloDeRebatimento)
+                Rebate(true, pontoColisao, contatos[0].normal, palheta ? palheta.VelAtual.x : 0);
+        }
+        else
+        {
+            if (Time.time - temposDosRepatimentos.y > intervaloDeRebatimento)
+                Rebate(false, pontoColisao, contatos[0].normal, palheta ? palheta.VelAtual.x : 0);
+        }
+
+
     }
 
-    void Rebate(bool horizontal, Vector3 pontoDeColisao, Vector3 normalDaColisao)
+    void Rebate(bool horizontal, Vector3 pontoDeColisao, Vector3 normalDaColisao, float velDaPalheta = 0)
     {
         if (horizontal)
         {
@@ -185,6 +192,9 @@ public class Bolinha : MonoBehaviour
             temposDosRepatimentos.y = Time.time;
             cameraShake.GenerateImpulseAtPositionWithVelocity(rb.position, (Vector3.up * -velAtual.y).normalized * 0.05f);
         }
+
+        velAtual.x += -velDaPalheta * 0.75f;
+        velAtual = velAtual.normalized * velocidade;
         anim.Play("Hit");
         GerenciadorDeEfeitos.instancia.InstanciaEfeito(
             GerenciadorDeEfeitos.Efeitos.BolinhaHit,
@@ -208,6 +218,10 @@ public class Bolinha : MonoBehaviour
             case GerenciadorDeJogo.EstadosDeJogo.Derrota:
             case GerenciadorDeJogo.EstadosDeJogo.Vitoria:
             case GerenciadorDeJogo.EstadosDeJogo.PerdeuBolinha:
+                Debug.Log("Terminou");
+                rb.bodyType = RigidbodyType2D.Static;
+                rb.simulated = false;
+                tr.position = Vector3.up * -100;
                 anim.Play("Oculta");
                 break;
         }
